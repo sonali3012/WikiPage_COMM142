@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RIT Dubai Student Tech Guide | Campus Technology Wiki</title>
+    <style>
+        /* ---------- RIT BRAND COLORS ---------- */
+        :root {
+            --rit-orange: #F76902;
+            --rit-dark-blue: #041E42;
+            --rit-light-orange: #fbe9e0;
+            --gray-bg: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-medium: #333333;
+            --border-light: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Georgia, 'Arial', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--gray-bg);
+            font-size: 18px;
+        }
+
+        /* Layout Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            gap: 2rem;
+            padding: 1.5rem;
+        }
+
+        /* ========== STICKY SIDEBAR TOC (DYNAMIC) ========== */
+        .toc-sidebar {
+            width: 280px;
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            flex-shrink: 0;
+            align-self: flex-start;
+            border-top: 4px solid var(--rit-orange);
+        }
+
+        .toc-sidebar h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--rit-dark-blue);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--rit-orange);
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .toc-sidebar ul {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .toc-sidebar li {
+            margin-bottom: 0.85rem;
+        }
+
+        .toc-sidebar a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .toc-sidebar a:hover {
+            background-color: var(--rit-light-orange);
+            color: var(--rit-orange);
+            padding-left: 0.8rem;
+        }
+
+        /* Active link highlighting (scrollspy) */
+        .toc-sidebar a.active {
+            background-color: var(--rit-light-orange);
+            color: var(--rit-orange);
+            border-left: 3px solid var(--rit-orange);
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar for sidebar */
+        .toc-sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--rit-orange);
+            border-radius: 5px;
+        }
+
+        /* ========== MAIN CONTENT AREA ========== */
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            min-width: 0;
+        }
+
+        /* Header / Logo Section */
+        .rit-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .logo-placeholder {
+            margin-bottom: 1rem;
+        }
+        .logo-placeholder img {
+            max-height: 80px;
+            width: auto;
+        }
+        .rit-header h1 {
+            font-size: 2.2rem;
+            color: var(--rit-dark-blue);
+            margin: 0.5rem 0 0.25rem;
+            font-weight: 700;
+        }
+        .rit-header p {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Headings - Clear Visual Hierarchy */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--rit-dark-blue);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-top: 0.5rem;
+            border-left: 4px solid var(--rit-orange);
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-top: 1.8rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            font-family: 'Arial', sans-serif;
+        }
+
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--rit-dark-blue);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--gray-bg);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 1.8rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        /* Code / inline commands */
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Pro Tip Box */
+        .pro-tip {
+            background: var(--rit-light-orange);
+            border-left: 5px solid var(--rit-orange);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .pro-tip strong {
+            color: var(--rit-dark-blue);
+        }
+
+        /* Image placeholders (for your future screenshots) */
+        .image-placeholder {
+            background: #f4f6f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #475569;
+            font-style: italic;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .image-placeholder strong {
+            color: var(--rit-dark-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .toc-sidebar {
+                width: auto;
+                position: static;
+                height: auto;
+                margin-bottom: 1rem;
+                top: 0;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .rit-header h1 {
+                font-size: 1.6rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            body {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- DYNAMIC / STICKY TABLE OF CONTENTS SIDEBAR -->
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <h3>On this page</h3>
+        <nav>
+            <ul id="toc-list">
+                <li><a href="#printing" class="toc-link">1. Printing Services on Campus</a></li>
+                <li><a href="#student-id" class="toc-link">2. Student ID Benefits – Save Money</a></li>
+                <li><a href="#email-benefits" class="toc-link">3. University Email Benefits</a></li>
+                <li><a href="#keeta" class="toc-link">4. Keeta Drone Delivery Near Campus</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN WIKI CONTENT -->
+    <main class="main-content">
+        <!-- RIT LOGO PLACEMENT (Add your official RIT logo here) -->
+        <div class="rit-header">
+            <div class="logo-placeholder">
+                <!-- REPLACE 'rit-logo.png' WITH YOUR ACTUAL LOGO FILE PATH -->
+                <img src="rit-logo.png" alt="Rochester Institute of Technology Logo" onerror="this.style.display='none'">
+                <!-- If you don't have the logo file yet, this div will be invisible. Just add the image later. -->
+            </div>
+            <h1>RIT Dubai Student Tech Guide</h1>
+            <p>A comprehensive technology resource for new and current students</p>
+        </div>
+
+        <!-- ================= SECTION 1: PRINTING ================= -->
+        <h2 id="printing">1. Printing Services on Campus</h2>
+        <p>Every RIT Dubai student receives a printing credit of <strong>50 AED per semester</strong>. Follow these steps to add funds and print your documents efficiently.</p>
+
+        <h3>Step 1: Add money to your account</h3>
+        <ul>
+            <li>Navigate to <code>print.ritdubai.edu</code> (must be connected to campus WiFi).</li>
+            <li>Log in using your RIT username and password (same credentials as your email).</li>
+            <li>Click <strong>Add Credit</strong> and complete payment using a credit card or campus card.</li>
+        </ul>
+        <div class="image-placeholder">
+            <strong>Image Placeholder</strong>
+            Screenshot: PaperCut login screen with "Add Credit" highlighted
+        </div>
+
+        <h3>Step 2: Print your document</h3>
+        <ul>
+            <li>Locate any printer in the library or computer lab.</li>
+            <li>Swipe your student ID card or manually enter your username.</li>
+            <li>Select <strong>Release Print Job</strong> from the on-screen menu.</li>
+            <li>Collect your printed document.</li>
+        </ul>
+        <div class="image-placeholder">
+            <strong>Image Placeholder</strong>
+            Screenshot: Printer release screen with arrow pointing to "Release Print Job"
+        </div>
+
+        <h3>Step 3: Troubleshooting common issues</h3>
+        <table>
+            <thead>
+                <tr><th>Problem</th><th>Solution</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Insufficient balance</td><td>Add credit via the web portal (Step 1 above).</td></tr>
+                <tr><td>Printer not responding</td><td>Restart the print job from your laptop or contact the IT Support Desk.</td></tr>
+                <tr><td>ID card not swiping</td><td>Type your username manually on the printer touchscreen.</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Cost per page:</strong> 0.20 AED (black and white) / 1 AED (color).</p>
+
+        <!-- ================= SECTION 2: STUDENT ID BENEFITS ================= -->
+        <h2 id="student-id">2. Student ID Benefits – Save Money</h2>
+        <p>Your RIT student ID card grants access to discounts at several local businesses. Always carry it with you or keep a digital photo on your phone.</p>
+
+        <h3>Confirmed discounts near campus</h3>
+        <table>
+            <thead>
+                <tr><th>Business</th><th>Discount</th><th>How to Claim</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Starbucks (DSO)</td><td>10% off</td><td>Show physical ID before payment.</td></tr>
+                <tr><td>Papa Johns (Silicon)</td><td>15% off</td><td>Show ID or a clear photo of your ID.</td></tr>
+                <tr><td>Lulu Hypermarket</td><td>5% off</td><td>Present ID at checkout.</td></tr>
+                <tr><td>The Daily Diner</td><td>20% off student menu</td><td>Show ID and mention "RIT student".</td></tr>
+            </tbody>
+        </table>
+        <div class="image-placeholder">
+            <strong>Photo Placeholder</strong>
+            Student ID card next to a receipt showing the applied discount
+        </div>
+
+        <div class="pro-tip">
+            <strong>Pro Tip:</strong> Save a high-resolution photo of your student ID on your phone. Many merchants accept the digital version if you forget the physical card.
+        </div>
+
+        <!-- ================= SECTION 3: EMAIL BENEFITS ================= -->
+        <h2 id="email-benefits">3. University Email Benefits</h2>
+        <p>Your <code>@rit.edu</code> email address is a key that unlocks free and discounted software. Use it to verify your student status on educational platforms.</p>
+
+        <h3>Top free services (use your RIT email)</h3>
+        <ul>
+            <li><strong>GitHub Student Developer Pack</strong> – Includes Copilot AI, Canva Pro, Namecheap domain, and over 50 development tools. Sign up at <code>education.github.com/pack</code>.</li>
+            <li><strong>Canva for Education</strong> – Premium templates, background remover, and 100GB storage. Verify at <code>canva.com/education</code>.</li>
+            <li><strong>Spotify Premium Student</strong> – 50% discount on ad-free music and bundled services. Register at <code>spotify.com/student</code>.</li>
+        </ul>
+        <div class="image-placeholder">
+            <strong>Screenshot Placeholder</strong>
+            Example: Spotify student verification email in an RIT inbox
+        </div>
+
+        <h3>General sign-up process</h3>
+        <ol>
+            <li>Go to the service's website and locate the student or education verification section.</li>
+            <li>Enter your full RIT email address (e.g., <code>abc1234@rit.edu</code>).</li>
+            <li>Check your RIT inbox for a confirmation link.</li>
+            <li>Click the link to complete verification and enjoy the benefits.</li>
+        </ol>
+
+        <!-- ================= SECTION 4: KEETA DRONE DELIVERY ================= -->
+        <h2 id="keeta">4. Keeta Drone Delivery Near Campus</h2>
+        <p>Keeta operates drone delivery services in the Dubai Silicon Oasis area, including direct service to RIT Dubai campus.</p>
+
+        <h3>Delivery zone</h3>
+        <p>The drone delivery zone includes: RIT Dubai main building and parking areas, DSO residences (Cedre, Golden Sands, etc.), and Silicon Central Mall.</p>
+        <div class="image-placeholder">
+            <strong>Map Placeholder</strong>
+            Keeta app map showing the drone delivery zone with RIT Dubai marked
+        </div>
+
+        <h3>How to place an order</h3>
+        <ol>
+            <li>Download the Keeta app (iOS or Android).</li>
+            <li>Enter your delivery address.</li>
+            <li>Look for items marked with a drone icon.</li>
+            <li>Complete your order – the drone will land at the nearest drone port.</li>
+            <li>Walk to the drone port and enter the pickup code displayed in your app.</li>
+        </ol>
+        <div class="image-placeholder">
+            <strong>Screenshot Placeholder</strong>
+            Keeta app order screen with the drone delivery icon highlighted
+        </div>
+
+        <h3>Important notes</h3>
+        <ul>
+            <li>Drone delivery fee: 5 AED (cheaper than standard car delivery, which costs 8-10 AED).</li>
+            <li>Maximum weight per order: 2.5 kg.</li>
+            <li>Available hours: 10:00 AM to 10:00 PM daily.</li>
+        </ul>
+
+        <div class="footer-note">
+            <p><strong>Need assistance?</strong> Visit the IT Support Desk in Building 1, ground floor, or email <code>help@ritdubai.edu</code>.</p>
+            <p>Last updated: April 2026 | Created for COMM 142.602 - Technical Communication</p>
+        </div>
+    </main>
+</div>
+
+<!-- SCROLLSPY JAVASCRIPT: Highlights active section in sticky sidebar -->
+<script>
+    // Get all section headings that have IDs (h2 tags)
+    const sections = document.querySelectorAll('h2[id]');
+    const navLinks = document.querySelectorAll('.toc-link');
+
+    function changeActiveLink() {
+        let current = '';
+        const scrollPosition = window.scrollY + 120; // offset for better user experience
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href').substring(1); // remove the '#'
+            if (href === current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Smooth scroll for sidebar links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Listen to scroll events and run on load
+    window.addEventListener('scroll', changeActiveLink);
+    window.addEventListener('load', changeActiveLink);
+</script>
+</body>
+</html>
