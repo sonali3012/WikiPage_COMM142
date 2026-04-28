@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>RIT Dubai Student Tech Guide | Campus Technology Wiki</title>
+    <style>
+        /* ---------- RIT BRAND COLORS ---------- */
+        :root {
+            --rit-orange: #F76902;
+            --rit-dark-blue: #041E42;
+            --rit-light-orange: #fbe9e0;
+            --gray-bg: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-medium: #333333;
+            --border-light: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Georgia, 'Arial', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--gray-bg);
+            font-size: 18px;
+        }
+
+        /* Layout Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            gap: 2rem;
+            padding: 1.5rem;
+        }
+
+        /* ========== STICKY SIDEBAR TOC (DYNAMIC) ========== */
+        .toc-sidebar {
+            width: 280px;
+            position: sticky;
+            top: 2rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
+            flex-shrink: 0;
+            align-self: flex-start;
+            border-top: 4px solid var(--rit-orange);
+        }
+
+        .toc-sidebar h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--rit-dark-blue);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--rit-orange);
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .toc-sidebar ul {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .toc-sidebar li {
+            margin-bottom: 0.85rem;
+        }
+
+        .toc-sidebar a {
+            text-decoration: none;
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            display: block;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .toc-sidebar a:hover {
+            background-color: var(--rit-light-orange);
+            color: var(--rit-orange);
+            padding-left: 0.8rem;
+        }
+
+        /* Active link highlighting (scrollspy) */
+        .toc-sidebar a.active {
+            background-color: var(--rit-light-orange);
+            color: var(--rit-orange);
+            border-left: 3px solid var(--rit-orange);
+            font-weight: 600;
+        }
+
+        /* Custom scrollbar for sidebar */
+        .toc-sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--rit-orange);
+            border-radius: 5px;
+        }
+
+        /* ========== MAIN CONTENT AREA ========== */
+        .main-content {
+            flex: 1;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            min-width: 0;
+        }
+
+        /* Header / Logo Section */
+        .rit-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .logo-placeholder {
+            margin-bottom: 1rem;
+        }
+        .logo-placeholder img {
+            max-height: 80px;
+            width: auto;
+        }
+        .rit-header h1 {
+            font-size: 2.2rem;
+            color: var(--rit-dark-blue);
+            margin: 0.5rem 0 0.25rem;
+            font-weight: 700;
+        }
+        .rit-header p {
+            color: #555;
+            font-size: 1rem;
+        }
+
+        /* Headings - Clear Visual Hierarchy */
+        h2 {
+            font-size: 1.8rem;
+            color: var(--rit-dark-blue);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-top: 0.5rem;
+            border-left: 4px solid var(--rit-orange);
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-top: 1.8rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            font-family: 'Arial', sans-serif;
+        }
+
+        th, td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--rit-dark-blue);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--gray-bg);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 1.8rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        /* Code / inline commands */
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Pro Tip Box */
+        .pro-tip {
+            background: var(--rit-light-orange);
+            border-left: 5px solid var(--rit-orange);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Responsive images */
+        .main-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .pro-tip strong {
+            color: var(--rit-dark-blue);
+        }
+
+        /* Image placeholders (for your future screenshots) */
+        .image-placeholder {
+            background: #f4f6f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #475569;
+            font-style: italic;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .image-placeholder strong {
+            color: var(--rit-dark-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-style: normal;
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            .toc-sidebar {
+                width: auto;
+                position: static;
+                height: auto;
+                margin-bottom: 1rem;
+                top: 0;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .rit-header h1 {
+                font-size: 1.6rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            body {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- DYNAMIC / STICKY TABLE OF CONTENTS SIDEBAR -->
+    <aside class="toc-sidebar" id="toc-sidebar">
+        <h3>On this page</h3>
+        <nav>
+            <ul id="toc-list">
+                <li><a href="#printing" class="toc-link">1. Printing Services on Campus</a></li>
+                <li><a href="#student-id" class="toc-link">2. Student ID Benefits – Save Money</a></li>
+                <li><a href="#email-benefits" class="toc-link">3. University Email Benefits</a></li>
+                <li><a href="#keeta" class="toc-link">4. Keeta Drone Delivery Near Campus</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN WIKI CONTENT -->
+    <main class="main-content">
+    <!-- RIT LOGO PLACEMENT -->
+    <img src="images/ritlogo1.png" alt="RIT Dubai Logo" class="logo-placeholder" width = "300px">
+    <div class="rit-header">
+
+        <h1>RIT Dubai Student Tech Guide</h1>
+        <p>A comprehensive technology resource for new and current students</p>
+
+        <!-- INTRO ADDED HERE -->
+        <p class="intro">
+            This guide provides step-by-step instructions to help RIT Dubai students
+            access essential campus technology services. From adding printing credit
+            to releasing print jobs and troubleshooting common issues, this resource
+            is designed to make your experience smooth and efficient.
+        </p>
+    </div>
+
+        <!-- ================= SECTION 1: PRINTING ================= -->
+        <h1>RIT Dubai Printing Guide</h1>
+        <h2 id="printing">1. Printing Services on Campus</h2>
+        <p>Every RIT Dubai student receives a printing credit of <strong>90 AED per semester</strong>. Follow these steps to add funds and print your documents efficiently.</p>
+        
+        
+
+    <h3>How to Add Money for Printing</h3>
+
+    <p><b>Step 1:Choose your payment method</b></p>
+    <ul>
+        <li>1. Deposit a cheque</li>
+        <li>2. Pay online using a secured card payment link</li>
+        <li>3.Pay in person at the Finance Office (debit/credit card)</li>
+    </ul>
+
+    <p><b>1. Cheque Payment</b></p>
+    <ul>
+        <li>Deposit your cheque into the RIT Dubai Finance Office bank account</li>
+        <li>Email the deposit slip to <b>dubaiar@rit.edu</b></li>
+        <li>Include your full name and University ID or application number</li>
+    </ul>
+
+    <p><b>2. Online Card Payment</b></p>
+    <ul>
+        <li>Email <b>dubaiar@rit.edu</b> with your details</li>
+        <li>Include: name, University ID, fee description, and amount</li>
+        <li>Receive a secured payment link (valid for 24 hours)</li>
+        <li>Complete payment online</li>
+    </ul>
+
+    <p><b>3. International Transfers</b></p>
+    <ul>
+        <li>Use IBAN for international transfers</li>
+        <li>Payments must be in AED (UAE dirhams)</li>
+    </ul>
+
+    <br>
+
+    <h3>How to Print Documents</h3>
+
+    <p><b>Step 2: Print your document</b></p>
+    <ul>
+        <li>Download the MyQ X app to your device from the app store</li>
+        <li>Save the document to your device such as the Files app on Apple devices</li>
+        <li>Go to any printer in the library or computer labs</li>
+        <li>Add paper to the printer if there is none, it is usually at the bottom of the printer</li>
+        <li>If no paper is available, ask the security guards</li>
+        <li>Scan the QR code or enter your username</li>
+        <li>Upload the document to the MyQ X app</li>
+        <li>Choose if you want the document in black and white or color</li>
+        <li>Choose how many copies you want to print</li>
+        <li>Select <strong>Release Print Job</strong> from the screen</li>
+        <li>Collect your printed document</li>
+    </ul>
+
+    <!-- IMAGE ADDED HERE -->
+    
+        <img src="images/print_ss.png" alt="Printer release screen" style="width:250px; height:auto;">
+    
+
+    <p><b>Step 3: Troubleshooting common issues</b></p>
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Problem</th>
+                <th>Solution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Insufficient balance</td>
+                <td>Add credit via the web portal (Step 1 above)</td>
+            </tr>
+            <tr>
+                <td>Printer not responding</td>
+                <td>Restart the print job or contact IT Support</td>
+            </tr>
+            <tr>
+                <td>QR code not working</td>
+                <td>Manually enter your ID on the printer</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Cost per page:</strong> 0.50 AED (black & white) / 1 AED (color)</p>
+    <hr>
+    <br></br>
+    
+
+       <!-- ================= SECTION 2: STUDENT ID BENEFITS ================= -->
+        <h1>RIT Dubai Student ID card guide</h1>
+        <h2 id="student-id">2. Student ID Benefits – Save Money</h2>
+        <p>Your student ID can help you with a lot of different things, from getting a student discount for Spotify Premium to being able to eat at certain restaurants for free. Always carry it with you or keep a digital photo on your phone.</p>
+
+        <h3>Confirmed discounts near campus</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Discount</th>
+                    <th>How to Claim</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Haidilao (Hotpot) </td>
+                    <td>20%-30% or special set meals for students </td>
+                    <td>Show physical ID before payment.</td>
+                </tr>
+                <tr>
+                    <td>Wingstop</td>
+                    <td>Frequently have promotions for students (like 10 wings for AED 25)</td>
+                    <td>Show ID or a clear photo of your ID.</td>
+                </tr>
+                <tr>
+                    <td>The Monk</td>
+                    <td>10% off</td>
+                    <td>Present ID at checkout.</td>
+                </tr>
+                <tr>
+                    <td>Tulawa</td>
+                    <td>20% off</td>
+                    <td>Show ID and mention "RIT student".</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>The International Student Card (ISIC) & NOL</h3>
+        <p>Access <strong>50% on all bus rides</strong> by getting a student NOL card. By paying just an extra <strong>25 AED</strong> at checkout for your student NOL card, you can also avail an international student card named the <strong>"ISIC Student ID."</strong></p>
+
+        <p>The ISIC card not only identifies you as a student in the UAE but also internationally, allowing you to have access towards a plethora of discounts such as:</p>
+        <ul>
+            <li><strong>Flights:</strong> Special student fares for Emirates and Oman Air.</li>
+            <li><strong>Travel:</strong> Save up to 20% with Booking.com.</li>
+            <li><strong>Subscriptions:</strong> YouTube Premium at half the price.</li>
+            <li><strong>Tech:</strong> 15% off on any new Huawei products.</li>
+            <li><strong>Apparel:</strong> 15% off on all Under Armour items.</li>
+        </ul>
+
+        <!-- <div class="image-placeholder">
+            <strong>Photo Placeholder</strong>
+            NoL card with ISIC logo.
+        </div> -->
+
+        <div class="pro-tip">
+            <strong>Pro Tip:</strong> Save a high-resolution photo of your student ID on your phone. Many merchants accept the digital version if you forget the physical card.
+            <p> If you have a ISIC Student ID, you can access it through the ISIC app.</p>
+        </div>
+        <hr>
+        <br>
+        
+        <!-- ================= SECTION 3: EMAIL BENEFITS ================= -->
+        <h1>University Email ID Benefits Guide</h1>
+        <h2 id="email-benefits">3. University Email Benefits</h2>
+        <p>Your <code>@rit.edu</code> email is your official student account — used for university updates and unlocking free tools.</p>
+
+        <h3>Google Workspace (Free)</h3>
+        <ul>
+            <li><strong>Drive –</strong> Cloud storage</li>
+            <li><strong>Docs, Sheets, Slides –</strong> Work with classmates in real time</li>
+            <li><strong>Meet –</strong> Video calls</li>
+            <li><strong>Calendar –</strong> Manage classes & deadlines</li>
+        </ul>
+
+        <h3>Microsoft Office 365 (Free)</h3>
+        <ul>
+            <li><strong>Word, Excel, PowerPoint –</strong> Assignments & presentations</li>
+            <li><strong>Teams –</strong> Communication with faculty</li>
+            <li><strong>OneDrive –</strong> 1TB cloud storage</li>
+        </ul>
+
+        <div style="text-align: center; margin: 1.5rem 0;">
+            <img src="images/microsoft.png"
+                alt="microsoft benefit apps"
+                style="max-width: 500px; border-radius: 12px;">
+        </div>
+
+        <h3>GitHub Education — For Every Student</h3>
+        <p>Get the GitHub Student Developer Pack — free access to premium dev tools:</p>
+        <ul>
+            <li><strong>Codespaces –</strong> Code in browser</li>
+            <li><strong>JetBrains –</strong> Professional IDEs</li>
+            <li><strong>Azure –</strong> $100 cloud credits</li>
+            <li><strong>Copilot –</strong> AI coding assistant</li>
+            <li><strong>Canva Pro –</strong> Free design tools</li>
+        </ul>
+        <p><strong>How to apply:</strong> Go to <strong>education.github.com</strong> → add your @g.rit.edu email in Settings → apply as a student → wait for verification.</p>
+
+        
+        <h3>Google Scholar + RIT Library</h3>
+        <ul>
+            <li><strong>Find papers fast –</strong> Search like Google</li>
+            <li><strong>Free access –</strong> Unlock paid articles using RIT login</li>
+            <li><strong>Easy citations –</strong> Copy MLA, APA, Chicago instantly</li>
+        </ul>
+
+        <h3>RIT Library Access — No More Paywalls</h3>
+        <p>Your <code>@rit.edu</code> email gives you full access to RIT’s library subscriptions.</p>
+        <ul>
+            <li><strong>Free journal access –</strong>Read paid articles without paying</li>
+            <li><strong>Premium databases –</strong>Access IEEE, JSTOR, ScienceDirect, and more</li>
+            <li><strong>Same access as main campus –</strong>RIT Dubai = RIT Rochester access</li>
+        </ul>
+
+        <p>Once linked, click <strong>"More@RIT"</strong> to access full articles for free.</p>
+
+        <div style="text-align: center; margin: 1.5rem 0;">
+            <img src="images/googscho_1.png"
+                alt="google scholar More@RIT"
+                style="max-width: 400px; border-radius: 12px;">
+        </div>
+        <div style="text-align: center; margin: 1.5rem 0;">
+            <img src="images/googscho_2.png"
+                alt="google scholar More@RIT"
+                style="max-width: 400px; border-radius: 12px;">
+        </div>
+
+        <h3>Quick Setup (1 min)</h3>
+        <ul>
+            <li>Google Scholar → Settings</li>
+            <li>Library Links</li>
+            <li>Search "Rochester Institute of Technology"</li>
+            <li>Enable and save</li>
+        </ul>
+
+        <div class="pro-tip">
+            <strong>Pro Tip:</strong> If an article isn’t available, search it directly in the RIT Library — you’ll often find a free version.
+        </div>
+
+        <hr style="margin: 2rem 0; border: none; border-top: 2px solid #e0e0e0;">
+
+        <!-- ================= SECTION 4: KEETA DRONE DELIVERY ================= -->
+        <h1>Keeta Drone Delivery Guide</h1>
+        <h2 id="keeta">4. Keeta Drone Delivery Near Campus</h2>
+
+        <p>Keeta now offers <strong>drone delivery</strong> in the Dubai Silicon Oasis area, including direct service to RIT Dubai. This guide walks you through your first drone order, from downloading the app to picking up your package at the drone port.</p>
+
+        <!-- Prerequisites / quick facts -->
+        <h3>What you need to know before you start</h3>
+        <ul>
+            <li><strong>Delivery fee:</strong> Only 5 AED (car delivery costs 8-10 AED).</li>
+            <li><strong>Max weight:</strong> 2.5 kg per order.</li>
+            <li><strong>Hours:</strong> 10:00 AM – 10:00 PM daily.</li>
+            <li><strong>Zone:</strong> RIT Dubai campus compound, DSO.</li>
+        </ul>
+
+        <!-- Map placeholder -->
+            <img src="images/map.jpeg" alt="Map of drone pick up point" style="max-width:50%; border-radius:20px; margin:1rem 0;">
+            
+        <!-- STEP-BY-STEP INSTRUCTIONS -->
+        <h3>Step-by-step guide to using Keeta drone delivery</h3>
+
+        <h4>Step 1: Download the Keeta app</h4>
+        <p>Go to the Apple App Store or Google Play Store, search for "Keeta Drone", and install the app.</p>
+         <img src="images/app.jpeg" alt="Keeta app download" style="max-width:50%; border-radius:20px; margin:1rem 0;">
+        <br>
+        <h4>Step 2: Sign up or log in</h4>
+        <p>Open the app and register using your phone number or email. Verify the OTP sent to your device.</p>
+       <img src="images/signup.jpeg" alt="Keeta app sign-up" style="max-width:50%; border-radius:20px; margin:1rem 0;">
+        <br>
+        <h4>Step 3: Enter your delivery address</h4>
+        <p>Tap the address bar at the top of the home screen. Type "RIT Dubai" or your exact building. The app will check if drone delivery is available at that address.</p>
+        <br>
+        <div class="pro-tip">
+            <strong>Pro Tip – Check drone eligibility early</strong><br>
+            The drone icon only appears for eligible addresses and restaurants. Enter your address first before browsing.
+        </div>
+        <br>
+        <h4>Step 4: Look for the drone icon</h4>
+        <p>Only items that can be delivered by drone show a small drone icon next to them. Browse restaurants and look for the icon.</p>
+        <img src="images/appui.png" alt="Drone delivery icon in app" style="max-width:50%; border-radius:20px; margin:1rem 0;">
+        <br>
+        <h4>Step 5: Add items to your cart and check out</h4>
+        <p>Select your items, go to the cart, and confirm that the delivery method says "Drone Delivery (5 AED)". Complete payment.</p>
+        <br>
+
+        <div class="pro-tip">
+            <strong>Pro Tip – Save on fees</strong><br>
+            Drone delivery is cheaper (5 AED) than car delivery (8-10 AED). Use it for small, urgent orders to save money.
+        </div>
+        <br>
+        <h4>Step 6: Wait for the "Ready for pickup" notification</h4>
+        <p>You will see a live map of the drone's flight. When it lands at the nearest drone port, the app sends a push notification with a 6-digit pickup code.</p>
+        <br>
+
+        <h4>Step 7: Walk to the drone port</h4>
+        <p>The notification tells you exactly where the port is (e.g., "Near Block E"). Your drone port should look like the picture below.</p>
+        <img src="images/pickuppoint.png" alt="Drone pickup point" style="max-width:50%; border-radius:20px; margin:1rem 0;">
+        <br>
+        <h4>Step 8: Enter your pickup code and collect your order</h4>
+        <p>On the port's screen, tap "Pick up order", then enter the 6-digit code from your app. The compartment will open – take your package and close the door. Once the drone arrives at the Drone Port and the order has been completed, the invoice will be sent to the email address you provided during registration.</p>
+        <br>
+
+        <h4>Step 9: Confirm receipt in the app</h4>
+        <p>Tap "Order received" and rate your experience (optional). Enjoy your delivery!</p>
+        <br>
+
+        <!-- TROUBLESHOOTING TABLE -->
+        <h3>Troubleshooting common issues</h3>
+        <table>
+            <thead>
+                <tr><th>Problem</th><th>Solution</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>No drone icon appears on any item</td>
+                    <td>Drone delivery is only available from select partners within the DSO zone. Make sure your address is set to "RIT Dubai". Try moving closer to campus.</td>
+                </tr>
+                <tr>
+                    <td>App says "Drone not available at this address"</td>
+                    <td>The delivery zone is limited. If you are outside the zone, use car delivery instead or walk to a known drone port (In front of the cafeteria or near Block E).</td>
+                </tr>
+                <tr>
+                    <td>I missed the pickup notification – the drone left</td>
+                    <td>Orders are held at the port for only 10 minutes. If you miss it, the order will be returned and refunded automatically. Re-order and stay near the port.</td>
+                </tr>
+                <tr>
+                    <td>The port screen says "Invalid code"</td>
+                    <td>Make sure you are using the 6-digit pickup code from "My Orders" – not the order number. Tap "Resend code" in the app to get a new one.</td>
+                </tr>
+                <tr>
+                    <td>The compartment door is stuck / won't open</td>
+                    <td>Do not force it. Contact Keeta support on their customer service hotline(+97144986429). They will remotely release the door or issue a refund.</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- QUICK REFERENCE CARD -->
+        <h3>Quick reference card</h3>
+        <ul>
+            <li><strong>Delivery point:</strong> Rochester Institute of Technology – Dubai Drone Port
+            Canteen entrance, Rochester Institute of Technology – Dubai, Dubai Silicon Oasis</li>
+            <li><strong>Delivery fee:</strong> 5 AED (drone) vs 8-10 AED (car).</li>
+            <li><strong>Max weight:</strong> 2.5 kg.</li>
+            <li><strong>Operating hours:</strong> 10:00 AM – 10:00 PM, 7 days a week.</li>
+            <li><strong>Pickup code expiry:</strong> 10 minutes from landing.</li>
+            <li><strong>For any more FAQs:</strong>.Go to the <a href="https://www.keetadrone.com/blogs/support">Keeta Drone support</a> page.</li>
+        </ul>
+        <br>
+        <div class="pro-tip">
+            <strong>Final Pro Tip – Keep your phone handy</strong><br>
+            The pickup code expires quickly. Walk to the port as soon as you get the notification, and have the app open on the "My Orders" screen.
+        </div>
+        <br>
+        <div class="footer-note">
+            <p><strong>Need more assistance?</strong> Visit the IT Support Desk in Block A, or email <code>itsdubai@rit.edu</code>.</p>
+            <p>Last updated: April 2026 | Created for COMM.142.602 - Technical Communication</p>
+        </div>
+    </main>
+</div>
+
+<!-- SCROLLSPY JAVASCRIPT: Highlights active section in sticky sidebar -->
+<script>
+    // Get all section headings that have IDs (h2 tags)
+    const sections = document.querySelectorAll('h2[id]');
+    const navLinks = document.querySelectorAll('.toc-link');
+
+    function changeActiveLink() {
+        let current = '';
+        const scrollPosition = window.scrollY + 120; // offset for better user experience
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href').substring(1); // remove the '#'
+            if (href === current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Smooth scroll for sidebar links
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Listen to scroll events and run on load
+    window.addEventListener('scroll', changeActiveLink);
+    window.addEventListener('load', changeActiveLink);
+</script>
+</body>
+</html>
