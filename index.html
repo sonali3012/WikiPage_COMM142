@@ -21,10 +21,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-        }
+
         body {
             font-family: 'Times New Roman', Georgia, 'Arial', sans-serif;
             line-height: 1.7;
@@ -269,65 +266,33 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .container {
                 flex-direction: column;
                 padding: 1rem;
-                align-items: center;
-                gap: 1.5rem;
-                width: 100%;
             }
             .toc-sidebar {
-                width: 100%;
-                max-width: 700px;
+                width: auto;
                 position: static;
                 height: auto;
-                margin: 0 auto 1rem auto;
+                margin-bottom: 1rem;
+                top: 0;
             }
             .main-content {
-                width: 100%;
-                max-width: 700px;
-                margin: 0 auto;
                 padding: 1.5rem;
-            }
-            .main-content img {
-            width: 100% !important;
-            max-width: 100% !important;
-            height: auto !important;
-            object-fit: contain;
-            }
-             .logo-placeholder {
-            display: block;
-            margin: 0 auto 1rem auto;
-            max-width: 250px;
-            height: auto;
             }
             .rit-header h1 {
                 font-size: 1.6rem;
-                text-align: center;
             }
-            .rit-header p,
-            .intro {
-                text-align: center;
+            h2 {
+                font-size: 1.5rem;
             }
-             h1, h2, h3 {
-            word-wrap: break-word;
+            h3 {
+                font-size: 1.2rem;
             }
-        
             body {
                 font-size: 16px;
-                overflow-x: hidden;
             }
-        @media (max-width: 600px) {
-        .main-content img {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-
-        .main-content {
-            padding: 1rem;
-        }
-        }
         }
     </style>
 </head>
